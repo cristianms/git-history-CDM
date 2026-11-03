@@ -1,0 +1,6 @@
+.vscode/**
+test/**
+test-git.js
+jsconfig.json
+vsc-extension-quickstart.md
+**/*.map

@@ -26,7 +26,7 @@ function activate(context) {
 
         const panel = vscode.window.createWebviewPanel(
           "gfh",
-          `${path.basename(currentPath)} (Git History)`,
+          `${path.basename(currentPath)} (Git File History CDM)`,
           vscode.ViewColumn.One,
           {
             enableScripts: true,

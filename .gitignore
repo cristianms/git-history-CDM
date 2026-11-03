@@ -23,3 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 
 /*/site
+# fork CDM
+package-lock.json
+*.vsix

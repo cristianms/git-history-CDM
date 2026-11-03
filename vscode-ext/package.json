@@ -1,10 +1,10 @@
 {
-  "name": "git-file-history",
-  "displayName": "Git File History",
+  "name": "git-file-history-cdm",
+  "displayName": "Git File History CDM",
   "description": "Modern, fast and intuitive tool for browsing the history and files in any git repository",
   "version": "1.0.1",
   "repository": "pomber/git-history",
-  "publisher": "pomber",
+  "publisher": "cdm",
   "license": "MIT",
   "keywords": [
     "git",
@@ -33,24 +33,21 @@
     "commands": [
       {
         "command": "extension.git-file-history",
-        "title": "Git File History"
+        "title": "Git File History CDM"
       }
     ]
   },
   "scripts": {
-    "build-site": "cd .. && cross-env PUBLIC_URL=. REACT_APP_GIT_PROVIDER=vscode yarn build && rm -fr vscode-ext/site/ && cp -r build/ vscode-ext/site/",
-    "build": " yarn build-site",
-    "postinstall": "node ./node_modules/vscode/bin/install",
-    "test": "node ./node_modules/vscode/bin/test",
-    "vscode:prepublish": "yarn build"
+    "build-site": "cd .. && cross-env SKIP_PREFLIGHT_CHECK=true NODE_OPTIONS=--openssl-legacy-provider PUBLIC_URL=. REACT_APP_GIT_PROVIDER=vscode craco build && node -e \"require('fs').rmSync('vscode-ext/site',{recursive:true,force:true});require('fs').cpSync('build','vscode-ext/site',{recursive:true})\"",
+    "build": "npm run build-site",
+    "vscode:prepublish": "npm run build"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.42",
     "@types/node": "^10.12.21",
     "cross-env": "^5.2.0",
     "eslint": "^5.13.0",
-    "typescript": "^3.3.1",
-    "vscode": "^1.1.28"
+    "typescript": "^3.3.1"
   },
   "dependencies": {
     "execa": "^1.0.0"
