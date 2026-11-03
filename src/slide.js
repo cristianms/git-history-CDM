@@ -1,6 +1,6 @@
 import React from "react";
 import animation from "./animation";
-import theme from "./nightOwl";
+import theme from "./darkPlus";
 import Scroller from "./scroller";
 
 const themeStylesByType = Object.create(null);
@@ -17,14 +17,38 @@ function getLineHeight(line, i, { styles }) {
   return styles[i].height != null ? styles[i].height : 15;
 }
 
-function getLine(line, i, { styles }) {
+function getLine(line, i, { styles, numbers }) {
   const style = styles[i];
+  const clipped = style.height != null && style.height < 15;
   return (
     <div
-      style={Object.assign({ overflow: "hidden", height: "15px" }, style)}
+      style={Object.assign(
+        {
+          height: "15px",
+          whiteSpace: "pre",
+          overflow: clipped ? "hidden" : "visible"
+        },
+        style
+      )}
       key={line.key}
     >
-      {!line.tokens.length && <br />}
+      <span
+        style={{
+          position: "sticky",
+          left: 0,
+          display: "inline-block",
+          boxSizing: "border-box",
+          width: "56px",
+          paddingRight: "16px",
+          marginRight: "8px",
+          textAlign: "right",
+          userSelect: "none",
+          backgroundColor: theme.plain.backgroundColor,
+          color: theme.lineNumber.color
+        }}
+      >
+        {numbers[i]}
+      </span>
       {line.tokens.map((token, i) => {
         const style = themeStylesByType[token.type] || {};
         return (
@@ -37,7 +61,7 @@ function getLine(line, i, { styles }) {
   );
 }
 
-function Slide({ lines, styles, changes }) {
+function Slide({ lines, styles, changes, numbers }) {
   return (
     <pre
       style={{
@@ -54,7 +78,7 @@ function Slide({ lines, styles, changes }) {
         items={lines}
         getRow={getLine}
         getRowHeight={getLineHeight}
-        data={{ styles }}
+        data={{ styles, numbers }}
         snapAreas={changes}
       />
     </pre>
@@ -64,5 +88,9 @@ function Slide({ lines, styles, changes }) {
 export default function SlideWrapper({ time, version }) {
   const { lines, changes } = version;
   const styles = animation((time + 1) / 2, lines);
-  return <Slide lines={lines} styles={styles} changes={changes} />;
+  let count = 0;
+  const numbers = lines.map(line => (line.middle ? ++count : ""));
+  return (
+    <Slide lines={lines} styles={styles} changes={changes} numbers={numbers} />
+  );
 }

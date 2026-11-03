@@ -83,7 +83,7 @@ function CommitList({ commits, currentIndex, selectCommit }) {
         height: "100px",
         position: "fixed",
         top: 0,
-        background: "rgb(1, 22, 39)",
+        background: "#1e1e1e",
         zIndex: 1
       }}
     >

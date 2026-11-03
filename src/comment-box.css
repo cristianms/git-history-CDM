@@ -20,7 +20,7 @@
 
 .comment-box:after {
   border-color: rgba(1, 22, 39, 0);
-  border-bottom-color: rgb(1, 22, 39);
+  border-bottom-color: #1e1e1e;
   border-width: 13px;
   margin-left: -13px;
 }
