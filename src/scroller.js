@@ -163,6 +163,9 @@ export default function Scroller({
       <code
         style={{
           display: "block",
+          // a webview do VS Code aplica fundo e cor próprios em <code>
+          backgroundColor: "transparent",
+          color: "inherit",
           width: "max-content",
           minWidth: "100%",
           padding: "10px 20px 10px 0",
