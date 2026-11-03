@@ -24,3 +24,19 @@ export function getScrollTop(area, contentHeight, containerHeight, heights) {
   }
   return bestTop;
 }
+
+export function formatDate(date) {
+  const pad = n => String(n).padStart(2, "0");
+  return `${pad(date.getDate())}/${pad(
+    date.getMonth() + 1
+  )}/${date.getFullYear()}`;
+}
+
+export function formatRelative(date, now = new Date()) {
+  const days = Math.floor((now - date) / 86400000);
+  const rtf = new Intl.RelativeTimeFormat("pt-BR", { numeric: "auto" });
+  if (days < 1) return "hoje";
+  if (days < 30) return rtf.format(-days, "day");
+  if (days < 365) return rtf.format(-Math.floor(days / 30), "month");
+  return rtf.format(-Math.floor(days / 365), "year");
+}

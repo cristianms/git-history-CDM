@@ -13,12 +13,6 @@ export default function App() {
     return (
       <React.Fragment>
         <InnerApp gitProvider={gitProvider} />
-        <footer>
-          <a href="https://github.com/pomber/git-history">Git History</a>
-          <br />
-          by
-          <a href="https://twitter.com/pomber">@pomber</a>
-        </footer>
       </React.Fragment>
     );
   }
@@ -30,7 +24,7 @@ function InnerApp({ gitProvider }) {
 
   useDocumentTitle(`Git History - ${fileName}`);
 
-  const [versions, loading, error, loadMore] = useVersionsLoader(
+  const [versions, loading, error, loadMore, noMore] = useVersionsLoader(
     gitProvider,
     path
   );
@@ -47,7 +41,14 @@ function InnerApp({ gitProvider }) {
     return <Error error={{ status: 404 }} gitProvider={gitProvider} />;
   }
 
-  return <History versions={versions} loadMore={loadMore} />;
+  return (
+    <History
+      versions={versions}
+      loadMore={loadMore}
+      fileName={fileName}
+      noMore={noMore}
+    />
+  );
 }
 
 function useVersionsLoader(gitProvider) {
@@ -89,5 +90,5 @@ function useVersionsLoader(gitProvider) {
       });
   }, [state.last]);
 
-  return [state.data, state.loading, state.error, loadMore];
+  return [state.data, state.loading, state.error, loadMore, state.noMore];
 }
