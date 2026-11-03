@@ -70,6 +70,7 @@ function Slide({ lines, styles, changes, numbers }) {
         paddingTop: "100px",
         margin: 0,
         height: "100%",
+        minHeight: "100vh",
         width: "100%",
         boxSizing: "border-box"
       }}
